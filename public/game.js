@@ -26,8 +26,7 @@ const waitingRoomElements = {
   playersList: document.getElementById('playersList'),
   playerCount: document.getElementById('playerCount'),
   startGameBtn: document.getElementById('startGameBtn'),
-  waitingMessage: document.getElementById('waitingMessage'),
-  leaveRoomBtn: document.getElementById('leaveRoomBtn')
+  waitingMessage: document.getElementById('waitingMessage')
 };
 
 const gameElements = {
@@ -124,9 +123,16 @@ waitingRoomElements.startGameBtn.addEventListener('click', () => {
   socket.emit('startGame');
 });
 
-waitingRoomElements.leaveRoomBtn.addEventListener('click', () => {
-  location.reload();
-});
+// Back button in waiting room
+const waitingRoomBackBtn = document.querySelector('#waitingRoom .back-btn');
+if (waitingRoomBackBtn) {
+  waitingRoomBackBtn.addEventListener('click', () => {
+    window.history.pushState({}, '', '/lobby');
+    showScreen('lobby');
+    socket.disconnect();
+    socket.connect();
+  });
+}
 
 // Game Event Listeners
 gameElements.deckPile.addEventListener('click', () => {
@@ -161,6 +167,7 @@ socket.on('roomCreated', ({ roomCode, playerId }) => {
   currentRoomCode = roomCode;
   currentPlayerId = playerId;
   waitingRoomElements.displayRoomCode.textContent = roomCode;
+  window.history.pushState({}, '', `/lobby/${roomCode}`);
   showScreen('waitingRoom');
 });
 
@@ -168,6 +175,7 @@ socket.on('roomJoined', ({ roomCode, playerId }) => {
   currentRoomCode = roomCode;
   currentPlayerId = playerId;
   waitingRoomElements.displayRoomCode.textContent = roomCode;
+  window.history.pushState({}, '', `/lobby/${roomCode}`);
   showScreen('waitingRoom');
 });
 
