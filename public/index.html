@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rocket UNO - Online Multiplayer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Lobby Screen -->
+  <div id="lobby" class="screen active">
+    <div class="container">
+      <h1>🚀 Rocket UNO</h1>
+      <div class="lobby-content">
+        <input type="text" id="playerName" placeholder="Enter your name" maxlength="20">
+        
+        <div class="button-group">
+          <button id="createRoomBtn" class="btn btn-primary">Create Room</button>
+        </div>
+        
+        <div class="divider">OR</div>
+        
+        <div class="join-room">
+          <input type="text" id="roomCode" placeholder="Enter room code" maxlength="6">
+          <button id="joinRoomBtn" class="btn btn-secondary">Join Room</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Waiting Room -->
+  <div id="waitingRoom" class="screen">
+    <div class="container">
+      <h1>Room: <span id="displayRoomCode"></span></h1>
+      <div class="room-info">
+        <p>Share this code with your friends!</p>
+        <button id="copyCodeBtn" class="btn btn-small">Copy Code</button>
+      </div>
+      
+      <div class="players-list">
+        <h2>Players (<span id="playerCount">0</span>)</h2>
+        <ul id="playersList"></ul>
+      </div>
+      
+      <button id="startGameBtn" class="btn btn-primary" style="display:none;">Start Game</button>
+      <p id="waitingMessage" style="display:none;">Waiting for host to start...</p>
+      <button id="leaveRoomBtn" class="btn btn-secondary">Leave Room</button>
+    </div>
+  </div>
+
+  <!-- Game Screen -->
+  <div id="game" class="screen">
+    <!-- Turn Notification Banner -->
+    <div id="turnBanner" class="turn-banner" style="display:none;">YOUR TURN!</div>
+    
+    <div class="game-container">
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="room-code">Room: <span id="gameRoomCode"></span></div>
+        <div class="game-info">
+          <span id="deckCount">🃏 52</span>
+          <span id="turnIndicator"></span>
+        </div>
+      </div>
+
+      <!-- Other Players -->
+      <div id="otherPlayers" class="other-players"></div>
+
+      <!-- Game Table -->
+      <div class="game-table">
+        <div class="discard-pile">
+          <div id="topCard" class="card"></div>
+          <div id="currentColorIndicator" class="color-indicator"></div>
+          <div id="drawStackIndicator" class="draw-stack" style="display:none;"></div>
+        </div>
+        <div class="deck-pile" id="deckPile">
+          <div class="card card-back">🃏</div>
+        </div>
+      </div>
+
+      <!-- Current Player's Hand -->
+      <div class="player-section">
+        <div class="player-info">
+          <h3 id="currentPlayerName">You</h3>
+          <button id="unoBtn" class="btn btn-uno" style="display:none;">UNO!</button>
+        </div>
+        <div id="playerHand" class="player-hand"></div>
+      </div>
+    </div>
+
+    <!-- Color Picker Modal -->
+    <div id="colorPicker" class="modal">
+      <div class="modal-content">
+        <h2>Choose a color</h2>
+        <div class="color-options">
+          <button class="color-btn red" data-color="red">Red</button>
+          <button class="color-btn yellow" data-color="yellow">Yellow</button>
+          <button class="color-btn green" data-color="green">Green</button>
+          <button class="color-btn blue" data-color="blue">Blue</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player Selector Modal -->
+    <div id="playerSelector" class="modal">
+      <div class="modal-content">
+        <h2 id="playerSelectorTitle">Choose a player</h2>
+        <div id="playerSelectorList" class="player-selector-list"></div>
+      </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="gameOver" class="modal">
+      <div class="modal-content">
+        <h2>🎉 Game Over!</h2>
+        <p id="winnerText"></p>
+        <button id="backToLobbyBtn" class="btn btn-primary">Back to Lobby</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Toast -->
+  <div id="errorToast" class="toast"></div>
+  
+  <!-- Custom Effect Toast -->
+  <div id="customEffectToast" class="toast custom-effect-toast"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
