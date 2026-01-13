@@ -45,21 +45,7 @@ Then open a terminal in the project folder and run:
 npm install
 \`\`\`
 
-### 2. Split Card Images
-
-The card images need to be extracted from the provided PNG files. 
-
-**Option A: Using Python (Recommended)**
-\`\`\`bash
-pip install Pillow
-python splitCards.py
-\`\`\`
-
-**Option B: Manual** - If you prefer, you can manually extract the cards from UnoCards.png (4x14 grid) and Draw4.png using any image editor, saving them in a `cards` folder with the naming pattern: `{color}_{value}.png` (e.g., `red_5.png`, `wild_draw4.png`).
-
-This will create a `cards` folder with all 57 individual card images.
-
-### 3. Start the Server
+### 2. Start the Server
 
 \`\`\`bash
 npm start
@@ -71,7 +57,7 @@ For development with auto-restart:
 npm run dev
 \`\`\`
 
-### 4. Play the Game
+### 3. Play the Game
 
 Open your browser and go to:
 \`\`\`
@@ -152,3 +138,4 @@ This project is for educational and personal use. UNO is a trademark of Mattel.
 ---
 
 Made with ❤️ for fun game nights with friends!
+
